@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGV Solutions, LLC — Integrated Reservoir Engineering</title>
+    <meta name="description" content="EGV Solutions — Integrated Reservoir Engineering, Production and Surface Solutions for the Oil & Gas industry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a2332;
+            --primary-blue: #2c3e50;
+            --accent-blue: #3498db;
+            --accent-green: #27ae60;
+            --accent-red: #e74c3c;
+            --accent-gold: #f39c12;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --gradient-primary: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
+            --gradient-accent: linear-gradient(135deg, #3498db 0%, #27ae60 100%);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--text-dark); overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+        /* Header & Navigation */
+        header { background: var(--gradient-primary); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+        
+        .logo { 
+            height: 60px; 
+            width: auto; 
+            transition: transform 0.3s ease; 
+        }
+        .logo:hover { transform: scale(1.05); }
+        .logo-text { color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; }
+        .logo-text span { display: block; font-size: 0.75rem; font-weight: 400; color: var(--accent-gold); letter-spacing: 2px; }
+
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { color: var(--white); text-decoration: none; font-weight: 500; transition: color 0.3s ease; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent-gold); transition: width 0.3s ease; }
+        nav a:hover::after { width: 100%; }
+
+        .lang-switch { background: var(--accent-gold); color: var(--primary-dark); border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        .lang-switch:hover { background: var(--white); transform: translateY(-2px); }
+        .mobile-menu { display: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero Section */
+        .hero { margin-top: 80px; background: var(--gradient-primary); color: var(--white); padding: 6rem 2rem; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%233498db" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom; background-size: cover; }
+        .hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; animation: fadeInUp 1s ease; }
+        .hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9; animation: fadeInUp 1s ease 0.2s backwards; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeInUp 1s ease 0.4s backwards; }
+        .btn { padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background: var(--accent-gold); color: var(--primary-dark); }
+        .btn-primary:hover { background: var(--white); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-secondary { background: transparent; color: var(--white); border: 2px solid var(--white); }
+        .btn-secondary:hover { background: var(--white); color: var(--primary-dark); transform: translateY(-3px); }
+
+        /* Sections */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-dark); }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 3rem; font-size: 1.1rem; }
+
+        /* Profile Section */
+        .profile { background: var(--light-bg); }
+        .profile-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .profile-text h2 { color: var(--primary-dark); margin-bottom: 1rem; }
+        .profile-text p { margin-bottom: 1rem; color: var(--text-dark); }
+        .profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+        .stat { text-align: center; padding: 2rem; background: var(--white); border-radius: 10px; box-shadow: var(--shadow); }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-blue); display: block; }
+        .stat-label { color: var(--text-light); font-size: 0.9rem; }
+
+        /* Clients Section */
+        .clients { background: var(--white); }
+        .clients-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; align-items: center; }
+        .client-logo { background: var(--light-bg); padding: 1.5rem; border-radius: 10px; text-align: center; font-weight: 600; color: var(--text-dark); transition: all 0.3s ease; }
+        .client-logo:hover { background: var(--accent-blue); color: var(--white); transform: translateY(-5px); box-shadow: var(--shadow); }
+
+        /* Services Section */
+        .services { background: var(--gradient-primary); color: var(--white); }
+        .services .section-title, .services .section-subtitle { color: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card { background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .service-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .service-number { font-size: 3rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem; }
+        .service-card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+
+        /* Specialized Services */
+        .specialized { background: var(--light-bg); }
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .spec-card { background: var(--white); padding: 2rem; border-radius: 15px; box-shadow: var(--shadow); transition: all 0.3s ease; border-left: 4px solid var(--accent-green); }
+        .spec-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .spec-card h3 { color: var(--primary-dark); margin-bottom: 1rem; }
+
+        /* What We Do - Accordion */
+        .whatwedo { background: var(--white); }
+        .accordion { max-width: 800px; margin: 0 auto; }
+        .accordion-item { background: var(--light-bg); margin-bottom: 1rem; border-radius: 10px; overflow: hidden; }
+        .accordion-header { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--primary-dark); color: var(--white); transition: background 0.3s ease; }
+        .accordion-header:hover { background: var(--accent-blue); }
+        .accordion-content { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .accordion-content.active { padding: 1.5rem; max-height: 500px; }
+        .accordion-content ul { list-style: none; }
+        .accordion-content li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .accordion-content li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-green); font-weight: bold; }
+
+        /* Technology Section */
+        .technology { background: var(--gradient-accent); color: var(--white); }
+        .technology .section-title, .technology .section-subtitle { color: var(--white); }
+        .tech-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .tech-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .tech-stat { background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; text-align: center; backdrop-filter: blur(10px); }
+        .tech-stat h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        /* Team Section */
+        .team { background: var(--light-bg); }
+        .team-content { text-align: center; max-width: 800px; margin: 0 auto; }
+        .team-quote { font-size: 1.5rem; font-style: italic; color: var(--text-dark); margin: 2rem 0; padding: 2rem; background: var(--white); border-radius: 15px; box-shadow: var(--shadow); }
+
+        /* Contact Section */
+        .contact { background: var(--gradient-primary); color: var(--white); }
+        .contact .section-title, .contact .section-subtitle { color: var(--white); }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto; }
+        .contact-item { background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; text-align: center; backdrop-filter: blur(10px); }
+        .contact-item h3 { margin-bottom: 1rem; color: var(--accent-gold); }
+        .contact-item a { color: var(--white); text-decoration: none; }
+
+        /* Footer */
+        footer { background: var(--primary-dark); color: var(--white); padding: 3rem 2rem 1rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
+        .footer-links a { color: var(--white); text-decoration: none; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--accent-gold); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; margin-top: 2rem; }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container { flex-wrap: wrap; }
+            nav ul { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+            nav ul.active { display: flex; }
+            .mobile-menu { display: block; }
+            .hero h1 { font-size: 2rem; }
+            .profile-content, .tech-content { grid-template-columns: 1fr; }
+            .profile-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="EGV Solutions Logo" class="logo">
+                
+                <div class="logo-text">
+                    EGV Solutions
+                    <span>GEOSCIENCE · RESERVOIR · PRODUCTION</span>
+                </div>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#profile" data-en="Company" data-es="Empresa">Company</a></li>
+                    <li><a href="#clients" data-en="Clients" data-es="Clientes">Clients</a></li>
+                    <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+                    <li><a href="#specialized" data-en="Specialized" data-es="Especializados">Specialized</a></li>
+                    <li><a href="#whatwedo" data-en="What We Do" data-es="Qué Hacemos">What We Do</a></li>
+                    <li><a href="#technology" data-en="Technology" data-es="Tecnología">Technology</a></li>
+                    <li><a href="#team" data-en="Team" data-es="Equipo">Team</a></li>
+                    <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
+                    <li><button class="lang-switch" id="langSwitch">ES</button></li>
+                </ul>
+                <div class="mobile-menu" id="mobileMenu">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-en="Oil & Gas Engineering" data-es="Ingeniería de Petróleo y Gas">Oil & Gas Engineering</h1>
+            <p data-en="Integrated Reservoir Engineering Team, Production and Surface Solutions — from data validation to field development, upstream to downstream." data-es="Equipo Integrado de Ingeniería de Yacimientos, Producción y Soluciones de Superficie — desde validación de datos hasta desarrollo de campos, upstream a downstream.">Integrated Reservoir Engineering Team, Production and Surface Solutions — from data validation to field development, upstream to downstream.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary" data-en="Start a Project" data-es="Iniciar Proyecto">Start a Project</a>
+                <a href="#services" class="btn btn-secondary" data-en="See Our Services" data-es="Ver Servicios">See Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="profile" class="profile">
+        <div class="container">
+            <div class="profile-content">
+                <div class="profile-text">
+                    <h2 data-en="Company Profile" data-es="Perfil de la Empresa">Company Profile</h2>
+                    <p data-en="EGV Solutions, LLC has proven experience across different companies and countries, with reliable results across the upstream and downstream supply chain — production optimization, production systems and work-overs in both conventional and unconventional oil and gas fields." data-es="EGV Solutions, LLC tiene experiencia comprobada en diferentes empresas y países, con resultados confiables en toda la cadena de suministro upstream y downstream — optimización de producción, sistemas de producción y work-overs en campos de petróleo y gas tanto convencionales como no convencionales.">EGV Solutions, LLC has proven experience across different companies and countries, with reliable results across the upstream and downstream supply chain — production optimization, production systems and work-overs in both conventional and unconventional oil and gas fields.</p>
+                    <p data-en="Our work spans reservoir characterization, static & dynamic simulation studies, oil & gas reserves estimation and certification, and the economical evaluation of the development plan to be implemented in the asset." data-es="Nuestro trabajo abarca caracterización de yacimientos, estudios de simulación estática y dinámica, estimación y certificación de reservas de petróleo y gas, y la evaluación económica del plan de desarrollo a implementar en el activo.">Our work spans reservoir characterization, static & dynamic simulation studies, oil & gas reserves estimation and certification, and the economical evaluation of the development plan to be implemented in the asset.</p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-number">29+</span>
+                        <span class="stat-label" data-en="Years Experience" data-es="Años de Experiencia">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label" data-en="Projects Completed" data-es="Proyectos Completados">Projects Completed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label" data-en="Countries Served" data-es="Países Atendidos">Countries Served</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients" class="clients">
+        <div class="container">
+            <h2 class="section-title" data-en="Trusted By" data-es="Confianza de">Trusted By</h2>
+            <p class="section-subtitle" data-en="EGV Solutions' technical team has worked with operators and consultancies including:" data-es="El equipo técnico de EGV Solutions ha trabajado con operadores y consultorías incluyendo:">EGV Solutions' technical team has worked with operators and consultancies including:</p>
+            <div class="clients-grid">
+                <div class="client-logo">Shell</div>
+                <div class="client-logo">Bapco</div>
+                <div class="client-logo">Tatweer</div>
+                <div class="client-logo">KOC</div>
+                <div class="client-logo">Petrotrin–Trinmar</div>
+                <div class="client-logo">Heritage</div>
+                <div class="client-logo">Orion Energy</div>
+                <div class="client-logo">Total</div>
+                <div class="client-logo">Soco–Congo</div>
+                <div class="client-logo">Cardinal Resources</div>
+                <div class="client-logo">Fieldwood</div>
+                <div class="client-logo">Latin American Resources</div>
+                <div class="client-logo">Pemex</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title" data-en="Our Services" data-es="Nuestros Servicios">Our Services</h2>
+            <p class="section-subtitle" data-en="A clear path from data to decision" data-es="Un camino claro de datos a decisión">A clear path from data to decision</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-number">01</div>
+                    <h3 data-en="Data Validation" data-es="Validación de Datos">Data Validation</h3>
+                    <p data-en="We start by validating the data you already have, so the reservoir characterization built on top of it actually holds up. It's the right foundation for the Integrated Reservoir Study that follows." data-es="Comenzamos validando los datos que ya tiene, para que la caracterización del yacimiento construida sobre ellos realmente se mantenga. Es la base correcta para el Estudio Integrado de Yacimientos que sigue.">We start by validating the data you already have, so the reservoir characterization built on top of it actually holds up. It's the right foundation for the Integrated Reservoir Study that follows.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">02</div>
+                    <h3 data-en="Integrated Reservoir Management" data-es="Gestión Integrada de Yacimientos">Integrated Reservoir Management</h3>
+                    <p data-en="We build reservoir models that let you forecast what different activities will do for the business, from upstream operations through to downstream impact." data-es="Construimos modelos de yacimientos que le permiten pronosticar qué harán diferentes actividades para el negocio, desde operaciones upstream hasta impacto downstream.">We build reservoir models that let you forecast what different activities will do for the business, from upstream operations through to downstream impact.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">03</div>
+                    <h3 data-en="Business Development Plan" data-es="Plan de Desarrollo de Negocio">Business Development Plan</h3>
+                    <p data-en="We put together an optimized field production plan that weighs both economic impact and commercial feasibility." data-es="Elaboramos un plan optimizado de producción de campo que pondera tanto el impacto económico como la viabilidad comercial.">We put together an optimized field production plan that weighs both economic impact and commercial feasibility.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">04</div>
+                    <h3 data-en="Production Operations & Optimization" data-es="Operaciones y Optimización de Producción">Production Operations & Optimization</h3>
+                    <p data-en="We design and optimize lifting and production systems, and support the operational work needed to get a well to its full potential." data-es="Diseñamos y optimizamos sistemas de levantamiento y producción, y apoyamos el trabajo operativo necesario para llevar un pozo a su máximo potencial.">We design and optimize lifting and production systems, and support the operational work needed to get a well to its full potential.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">05</div>
+                    <h3 data-en="Investment Asset Evaluation" data-es="Evaluación de Activos de Inversión">Investment Asset Evaluation</h3>
+                    <p data-en="Before you acquire or invest in a lease, we take a hard look at it: reactivation feasibility, crude and condensate quality, production potential, and regulatory or spacing constraints." data-es="Antes de adquirir o invertir en un arrendamiento, lo analizamos profundamente: viabilidad de reactivación, calidad de crudo y condensado, potencial de producción, y restricciones regulatorias o de espaciamiento.">Before you acquire or invest in a lease, we take a hard look at it: reactivation feasibility, crude and condensate quality, production potential, and regulatory or spacing constraints.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="specialized" class="specialized">
+        <div class="container">
+            <h2 class="section-title" data-en="Specialized Services" data-es="Servicios Especializados">Specialized Services</h2>
+            <p class="section-subtitle" data-en="Beyond the core study" data-es="Más allá del estudio principal">Beyond the core study</p>
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <h3 data-en="Technical Due Diligence (M&A)" data-es="Due Diligence Técnico (M&A)">Technical Due Diligence (M&A)</h3>
+                    <p data-en="An independent technical review of reserves and assets for buyers and sellers ahead of a transaction." data-es="Una revisión técnica independiente de reservas y activos para compradores y vendedores antes de una transacción.">An independent technical review of reserves and assets for buyers and sellers ahead of a transaction.</p>
+                </div>
+                <div class="spec-card">
+                    <h3 data-en="Resource & Reserves Certification" data-es="Certificación de Recursos y Reservas">Resource & Reserves Certification</h3>
+                    <p data-en="Certification of Resources and/or Reserves for regulatory and financial reporting, aligned with SEC and SPE-PRMS standards." data-es="Certificación de Recursos y/o Reservas para reportes regulatorios y financieros, alineado con estándares SEC y SPE-PRMS.">Certification of Resources and/or Reserves for regulatory and financial reporting, aligned with SEC and SPE-PRMS standards.</p>
+                </div>
+                <div class="spec-card">
+                    <h3 data-en="Well & Field Revitalization Audit" data-es="Auditoría de Revitalización de Pozos y Campos">Well & Field Revitalization Audit</h3>
+                    <p data-en="A fast, cost-effective diagnostic of underperforming wells and fields." data-es="Un diagnóstico rápido y efectivo en costos de pozos y campos con bajo rendimiento.">A fast, cost-effective diagnostic of underperforming wells and fields.</p>
+                </div>
+                <div class="spec-card">
+                    <h3 data-en="Technical Training Programs" data-es="Programas de Entrenamiento Técnico">Technical Training Programs</h3>
+                    <p data-en="In-house courses and coaching for client technical teams, covering reservoir engineering, petrophysics, geology and production topics." data-es="Cursos internos y coaching para equipos técnicos de clientes, cubriendo ingeniería de yacimientos, petrofísica, geología y temas de producción.">In-house courses and coaching for client technical teams, covering reservoir engineering, petrophysics, geology and production topics.</p>
+                </div>
+                <div class="spec-card">
+                    <h3 data-en="CTS Technology Feasibility Study" data-es="Estudio de Factibilidad de Tecnología CTS">CTS Technology Feasibility Study</h3>
+                    <p data-en="A standalone feasibility study of Catalytic Thermal Steam technology for a specific field or asset." data-es="Un estudio de factibilidad independiente de tecnología Catalytic Thermal Steam para un campo o activo específico.">A standalone feasibility study of Catalytic Thermal Steam technology for a specific field or asset.</p>
+                </div>
+                <div class="spec-card">
+                    <h3 data-en="Technical Data Management" data-es="Gestión de Datos Técnicos">Technical Data Management</h3>
+                    <p data-en="Organizing, cleaning up and digitizing years of scattered well records and technical data." data-es="Organizando, limpiando y digitalizando años de registros de pozos dispersos y datos técnicos.">Organizing, cleaning up and digitizing years of scattered well records and technical data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="whatwedo" class="whatwedo">
+        <div class="container">
+            <h2 class="section-title" data-en="What We Do" data-es="Qué Hacemos">What We Do</h2>
+            <p class="section-subtitle" data-en="Senior consultants, upstream to downstream" data-es="Consultores senior, upstream a downstream">Senior consultants, upstream to downstream</p>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span data-en="Geophysics" data-es="Geofísica">Geophysics</span>
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li data-en="Geological controls on the propagation, reflection, and refraction of seismic waves" data-es="Controles geológicos en la propagación, reflexión y refracción de ondas sísmicas">Geological controls on the propagation, reflection, and refraction of seismic waves</li>
+                            <li data-en="Implementation of 2D and 3D interpretation techniques and seismic velocities" data-es="Implementación de técnicas de interpretación 2D y 3D y velocidades sísmicas">Implementation of 2D and 3D interpretation techniques and seismic velocities</li>
+                            <li data-en="Interpretation of structural styles from seismic data" data-es="Interpretación de estilos estructurales a partir de datos sísmicos">Interpretation of structural styles from seismic data</li>
+                            <li data-en="Sequence stratigraphy and seismic facies analysis" data-es="Estratigrafía secuencial y análisis de facies sísmicas">Sequence stratigraphy and seismic facies analysis</li>
+                            <li data-en="Obtaining acoustic impedance, DHIs and AVO" data-es="Obtención de impedancia acústica, DHIs y AVO">Obtaining acoustic impedance, DHIs and AVO</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span data-en="Geology" data-es="Geología">Geology</span>
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li data-en="Review and validation of existing/available information" data-es="Revisión y validación de información existente/disponible">Review and validation of existing/available information</li>
+                            <li data-en="Wells loading and validation, geophysical logs" data-es="Carga y validación de pozos, registros geofísicos">Wells loading and validation, geophysical logs</li>
+                            <li data-en="Stratigraphic model: validation and correlation of tops/markers" data-es="Modelo estratigráfico: validación y correlación de tops/marcadores">Stratigraphic model: validation and correlation of tops/markers</li>
+                            <li data-en="Stratigraphic and structural sections generation" data-es="Generación de secciones estratigráficas y estructurales">Stratigraphic and structural sections generation</li>
+                            <li data-en="Core/log calibration (where cores exist)" data-es="Calibración núcleo/registro (donde existen núcleos)">Core/log calibration (where cores exist)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span data-en="Petrophysics" data-es="Petrofísica">Petrophysics</span>
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li data-en="Available data gathering and quality control of project records" data-es="Recopilación de datos disponibles y control de calidad de registros del proyecto">Available data gathering and quality control of project records</li>
+                            <li data-en="Calibrated multi-mineral model with gravel description" data-es="Modelo multi-mineral calibrado con descripción de grava">Calibrated multi-mineral model with gravel description</li>
+                            <li data-en="Determination of Vsh–Phit–Phie–Sw" data-es="Determinación de Vsh–Phit–Phie–Sw">Determination of Vsh–Phit–Phie–Sw</li>
+                            <li data-en="Cutting parameters applied to determine useful thickness" data-es="Parámetros de corte aplicados para determinar espesor útil">Cutting parameters applied to determine useful thickness</li>
+                            <li data-en="Neural network application in lithofacies and petrophysical analysis" data-es="Aplicación de redes neuronales en análisis de litofacies y petrofísico">Neural network application in lithofacies and petrophysical analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span data-en="Reservoirs" data-es="Yacimientos">Reservoirs</span>
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li data-en="Feasibility and implementation study of Drill Cutting Re-Injection (DCRI)" data-es="Estudio de factibilidad e implementación de Re-Inyección de Recortes de Perforación (DCRI)">Feasibility and implementation study of Drill Cutting Re-Injection (DCRI)</li>
+                            <li data-en="Current reservoir(s) recovery determination" data-es="Determinación de recuperación de yacimiento(s) actual(es)">Current reservoir(s) recovery determination</li>
+                            <li data-en="Capillary pressure, relative permeability, wettability and IOR/EOR studies" data-es="Presión capilar, permeabilidad relativa, mojabilidad y estudios IOR/EOR">Capillary pressure, relative permeability, wettability and IOR/EOR studies</li>
+                            <li data-en="Analysis and interpretation of production/pressure information per well and per reservoir" data-es="Análisis e interpretación de información de producción/presión por pozo y por yacimiento">Analysis and interpretation of production/pressure information per well and per reservoir</li>
+                            <li data-en="Proven / probable / possible reserves evaluation" data-es="Evaluación de reservas probadas / probables / posibles">Proven / probable / possible reserves evaluation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span data-en="Production" data-es="Producción">Production</span>
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li data-en="Nodal analysis per well/reservoir/system to optimize completion design and gas injection" data-es="Análisis nodal por pozo/yacimiento/sistema para optimizar diseño de completación e inyección de gas">Nodal analysis per well/reservoir/system to optimize completion design and gas injection</li>
+                            <li data-en="Equipment sizing to improve production facility separation equipment" data-es="Dimensionamiento de equipos para mejorar equipo de separación de instalaciones de producción">Equipment sizing to improve production facility separation equipment</li>
+                            <li data-en="Production methods design and implementation" data-es="Diseño e implementación de métodos de producción">Production methods design and implementation</li>
+                            <li data-en="Digital well schematic design based on nodal analysis" data-es="Diseño de esquema digital de pozo basado en análisis nodal">Digital well schematic design based on nodal analysis</li>
+                            <li data-en="Well stimulation process design and implementation" data-es="Diseño e implementación de proceso de estimulación de pozos">Well stimulation process design and implementation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="technology">
+        <div class="container">
+            <h2 class="section-title" data-en="Research & New Technologies" data-es="Investigación y Nuevas Tecnologías">Research & New Technologies</h2>
+            <p class="section-subtitle">CTS — Catalytic Thermal Steam</p>
+            <div class="tech-content">
+                <div>
+                    <p data-en="EGV Solutions manages the operation of CTS technology, a field-proven solution for recovering heavy and extra-heavy crude oil. It's the result of years of applied scientific research." data-es="EGV Solutions gestiona la operación de la tecnología CTS, una solución probada en campo para recuperar crudo pesado y extrapesado. Es el resultado de años de investigación científica aplicada.">EGV Solutions manages the operation of CTS technology, a field-proven solution for recovering heavy and extra-heavy crude oil. It's the result of years of applied scientific research.</p>
+                    <p data-en="The process relies on an aqueous mixture of catalysts: micro-spherical cracking catalysts, aluminum oxide for sulfur treatment, and amorphous nickel-cobalt and aluminum silicate catalysts, dosed at 10,000–20,000 ppm depending on the crude." data-es="El proceso se basa en una mezcla acuosa de catalizadores: catalizadores de craqueo micro-esféricos, óxido de aluminio para tratamiento de azufre, y catalizadores amorfos de níquel-cobalto y silicato de aluminio, dosificados a 10,000–20,000 ppm dependiendo del crudo.">The process relies on an aqueous mixture of catalysts: micro-spherical cracking catalysts, aluminum oxide for sulfur treatment, and amorphous nickel-cobalt and aluminum silicate catalysts, dosed at 10,000–20,000 ppm depending on the crude.</p>
+                </div>
+                <div class="tech-stats">
+                    <div class="tech-stat">
+                        <h3>↓ Viscosity</h3>
+                        <p data-en="Reduced within the reservoir" data-es="Reducida dentro del yacimiento">Reduced within the reservoir</p>
+                    </div>
+                    <div class="tech-stat">
+                        <h3>↑ Profitability</h3>
+                        <p data-en="Heavy → medium/light crude" data-es="Pesado → crudo medio/ligero">Heavy → medium/light crude</p>
+                    </div>
+                    <div class="tech-stat">
+                        <h3>↓ Cost / bbl</h3>
+                        <p data-en="Production & transport" data-es="Producción y transporte">Production & transport</p>
+                    </div>
+                    <div class="tech-stat">
+                        <h3>60%</h3>
+                        <p data-en="Extension of productive life" data-es="Extensión de vida productiva">Extension of productive life</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECCIÓN DE VIDEO AGREGADA -->
+            <div style="margin-top: 3rem; text-align: center; width: 100%;">
+                <video controls width="100%" style="max-width: 900px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); background: #000;">
+                    <source src="cts-demo.mp4" type="video/mp4">
+                    <p data-en="Your browser does not support the video tag." data-es="Tu navegador no soporta la reproducción de video." style="color: white; padding: 1rem;">Your browser does not support the video tag.</p>
+                </video>
+            </div>
+            <!-- FIN SECCIÓN DE VIDEO -->
+
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title" data-en="Technical Team" data-es="Equipo Técnico">Technical Team</h2>
+            <div class="team-content">
+                <div class="team-quote" data-en="&ldquo;The Oil & Gas business is our specialty. We take care of improving our clients' business — that's why they can trust us.&rdquo;" data-es="&ldquo;El negocio del petróleo y gas es nuestra especialidad. Nos encargamos de mejorar el negocio de nuestros clientes — por eso pueden confiar en nosotros.&rdquo;">&ldquo;The Oil & Gas business is our specialty. We take care of improving our clients' business — that's why they can trust us.&rdquo;</div>
+                <p data-en="29+ years of recognized experience, impacting positively on these activities." data-es="29+ años de experiencia reconocida, impactando positivamente en estas actividades.">29+ years of recognized experience, impacting positively on these activities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-en="Contact Us" data-es="Contáctenos">Contact Us</h2>
+            <p class="section-subtitle" data-en="Let's Work Together" data-es="Trabajemos Juntos">Let's Work Together</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3 data-en="Address" data-es="Dirección">Address</h3>
+                    <p>4102 Retreat Creek Ln.<br>Katy, Texas 77494</p>
+                </div>
+                <div class="contact-item">
+                    <h3 data-en="Phone" data-es="Teléfono">Phone</h3>
+                    <p><a href="tel:+17135698808">+1 713-569-8808</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3 data-en="Email" data-es="Correo">Email</h3>
+                    <p><a href="mailto:inquiries@egvsolutions.net">inquiries@egvsolutions.net</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" data-en="Privacy Policy" data-es="Política de Privacidad">Privacy Policy</a>
+                <a href="#" data-en="Terms of Use" data-es="Términos de Uso">Terms of Use</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> EGV Solutions, LLC. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></p>
+                <p>Katy, Texas</p>
+                <p data-en="Integrated Reservoir Engineering · Production · Surface Solutions" data-es="Ingeniería Integrada de Yacimientos · Producción · Soluciones de Superficie">Integrated Reservoir Engineering · Production · Surface Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Switcher
+        let currentLang = 'en';
+        const langSwitch = document.getElementById('langSwitch');
+        
+        langSwitch.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            langSwitch.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            document.documentElement.lang = currentLang;
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Accordion
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
